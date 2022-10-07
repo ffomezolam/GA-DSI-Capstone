@@ -24,7 +24,7 @@ HuggingFace GPT2, which wants to throw errors as often as possible. Have been
 able to generate conclusions to lines from Shakespeare's Sonnets, but these are
 not very promising so far, with only approx 2/10 generating usable phrases
 
-I have also been working on a word generator based off a custom trie
+  I have also been working on a word generator based off a custom trie
 implementation of something like a markov chain, but developing what is
 essentially a basic model from scratch seems like it may take too long to be
 feasible within the deadline. The hope was to combine generated words with POS
@@ -38,8 +38,8 @@ on its usage. Unfortunately the documentation and tutorials do not give very
 clear explanation about what things do, so I've been forced to piece it
 together from code snippets and often ambiguously-worded write-ups and
 code-alongs.
-
-I've gotten the model to start spitting out decent sounding text that doesn't
+  
+  I've gotten the model to start spitting out decent sounding text that doesn't
 end up in an endless loop. So that's good. Unfortunately, looks like I have to
 go back to cleaning and possibly sourcing additional text to feed the model:
 
