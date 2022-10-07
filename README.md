@@ -43,12 +43,12 @@ code-alongs.
 end up in an endless loop. So that's good. Unfortunately, looks like I have to
 go back to cleaning and possibly sourcing additional text to feed the model:
 
-1. Additional cleaning needs to be done to handle weird apostraphes, quotes,
+  1. Additional cleaning needs to be done to handle weird apostraphes, quotes,
    underscores, and anything else that might mess up the tokenizer. I'm going
    maximum brute force here.
-2. I feel like I need to feed more text to the model. Not worried about getting
+  2. I feel like I need to feed more text to the model. Not worried about getting
    the text - I'm more worried about speed of fitting the model. If necessary
    I'll grab AWS for it. More to come over the weekend!
 
-Also, I think I'm limiting my project scope to just generating sonnet-like text
+  Also, I think I'm limiting my project scope to just generating sonnet-like text
 from a prompt or line. We'll see if that sticks.
