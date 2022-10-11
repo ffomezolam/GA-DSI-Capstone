@@ -7,7 +7,7 @@ import re
 
 RE_WORD = re.compile(r"\b[\w'’]+\b")
 RE_WHITESPACE = re.compile(r'\s+')
-RE_SENTENCE = re.compile(r'\w[\w\s,:;\'’-]+[.?!]')
+RE_SENTENCE = re.compile(r'\w.*?[.?!]', re.S)
 
 def extract_words(text, n=1):
     return RE_WORD.findall(text)
