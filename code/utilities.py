@@ -4,6 +4,9 @@ Operations for deconstructing text into words
 """
 
 import re
+from transformers import AutoTokenizer, TFAutoModelForCausalLM
+
+#--- TEXT PROCESSING
 
 RE_WORD = re.compile(r"\b[\w'’]+\b")
 RE_WHITESPACE = re.compile(r'\s+')
@@ -15,6 +18,25 @@ def extract_words(text, n=1):
 def extract_sentences(text):
     return RE_SENTENCE.findall(text)
 
+#--- MODEL SUPPORT
+
+def make_tokenizer(type):
+    return AutoTokenizer.from_pretrained(type)
+
+def make_model(type):
+    return TFAutoModelForCausalLM.from_pretrained(type)
+
+def generate_from(text, model, tokenizer, max=100, temp=1, k=50, rep_penalty=1.5, len_penalty=0.75, n_seq=1):
+    tokens = tokenizer(text, return_tensors='tf')
+    output = model.generate(**tokens,
+                            do_sample=True,
+                            max_new_tokens=max,
+                            temperature=temp,
+                            top_k=k,
+                            repetition_penalty=rep_penalty,
+                            length_penalty=len_penalty,
+                            num_return_sequences=n_seq)
+    return tokenizer.decode(output[0], skip_special_tokens=True)
 
 ###------------------------------------------------------------- SELF-TEST
 
