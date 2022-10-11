@@ -38,7 +38,7 @@ on its usage. Unfortunately the documentation and tutorials do not give very
 clear explanation about what things do, so I've been forced to piece it
 together from code snippets and often ambiguously-worded write-ups and
 code-alongs.
-  
+
   I've gotten the model to start spitting out decent sounding text that doesn't
 end up in an endless loop. So that's good. Unfortunately, looks like I have to
 go back to cleaning and possibly sourcing additional text to feed the model:
@@ -52,3 +52,25 @@ go back to cleaning and possibly sourcing additional text to feed the model:
 
   Also, I think I'm limiting my project scope to just generating sonnet-like text
 from a prompt or line. We'll see if that sticks.
+
+- 2022-10-10: I'm having trouble getting grips with the underlying workings of
+the transformers model, so I've spent most of today and a good chunk of the
+weekend reviewing documentation, tutorials, and any articles I can find in the
+hopes that demystifying the model would allow me to do more with it.
+
+  Progress is very slow and incremental. For example, it took me all day today
+  to finally find out how to stop getting repeating text generating from the
+  same prompt - no documentation told me I should be exporting 'tf' tensors in
+  order to use sampling, but all the tutorials showed tokenizer returning 'np'
+  tensors. Annoying... So it's basically trial and error in order to learn how
+  this works. Still, I'm glad that after what seemed like a day of pointless
+  busywork, I've made one small improvement.
+
+  So in conclusion, I've got a model that seems to be sensitive to the training
+  input and generates text that is somewhat imitative of the training input,
+  which has been my main goal. However, I am no closer to poetic verse, and
+  I think the poem idea has to be abandoned, as handling rhymes seems to be
+  not trivial. **Or** I lean in to the rhyming aspect and try to build
+  something that rhymes, and that's the product. As much as I'd love to do
+  that, the effort required is sure to sap all of the time available and I am
+  not confident that I could have anything working by deadline.
