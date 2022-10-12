@@ -322,7 +322,7 @@
       Since I live hateful to those ruthful eyes,
       Vexing with untuned moan her dainty ears!
     If I have loved her dearer than my breath,
-      My breath that calls the heaven to witness it!--
+      My breath that calls the heaven to witness it!
       And still hold her most dear until my death,
       And if that all this cannot move one whit,
     Yet sure she cannot but must think apart
@@ -441,7 +441,7 @@
       And have no stars but those that must fulfil
       The work of rigour, fatally begun
       Upon this heart whom cruelty will kill,
-    Injurious Delia!--yet, I love thee still,
+    Injurious Delia! yet, I love thee still,
       And will whilst I shall draw this breath of mine;
       Ill tell the world that I deserved but ill,
       And blame myself, texcuse that heart of thine;
@@ -603,7 +603,7 @@
       Though thou a Laura hast no Petrarch found,
       In base attire yet clearly beauty shines.
     And I though born within a colder clime,
-      Do feel mine inward heat as great--I know it;
+      Do feel mine inward heat as great, I know it;
       He never had more faith, although more rhyme;
       I love as well though he could better show it.
     But I may add one feather to thy fame,
@@ -714,7 +714,7 @@
     When thou, surcharged with burden of thy years,
       Shalt bend thy wrinkles homeward to the earth,
       And that in beautys lease expired appears
-      The date of age, the kalends of our death,--
+      The date of age, the kalends of our death,
     But ah! no more, this must not be foretold,
     For women grieve to think they must be old.
 
@@ -1588,7 +1588,7 @@
     Lo thus each sense, dear fair one, I importune;
     But being care, thou flyest me as ill fortune.
 
-    But being care, thou flyest me as ill fortune;--
+    But being care, thou flyest me as ill fortune;
       Care the consuming canker of the mind!
       The discord that disorders sweet hearts tune!
       Th abortive bastard of a coward mind!
@@ -1851,8 +1851,8 @@
       Shall find th uncancelled tenour of her vow,
       And her disdain be then confessed of some,
       How much unkind and long, I find it now,
-    O yet even then--though then will be too late
-      To comfort me; dead, many a day, ere then--
+    O yet even then, though then will be too late
+      To comfort me; dead, many a day, ere then
       They shall confess I did not force her heart;
       And time shall make it known to other men
     That neer had her disdain made me despair,
@@ -2189,4 +2189,3 @@
         Her true given praise my first confession is;
       Though her disdain do rack me night and day,
         This I confessed, and will deny in this.
-
