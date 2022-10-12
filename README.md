@@ -74,3 +74,9 @@ hopes that demystifying the model would allow me to do more with it.
   something that rhymes, and that's the product. As much as I'd love to do
   that, the effort required is sure to sap all of the time available and I am
   not confident that I could have anything working by deadline.
+
+- 2022-10-11: Happened upon some other resources that are relevant to what I'm
+doing - poetry and rhyme. Unfortunately, they are both too high-level and too
+vague - some of them don't even provide examples of generated results. However
+based on these resources I have an idea on how to move forward, and am going to
+try a few options tomorrow, starting with an alternative model.
