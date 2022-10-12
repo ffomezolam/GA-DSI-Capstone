@@ -38,6 +38,8 @@ def generate_from(text, model, tokenizer, max=100, temp=1, k=50, rep_penalty=1.5
                             num_return_sequences=n_seq)
     return tokenizer.decode(output[0], skip_special_tokens=True)
 
+#--- RHYMING
+
 ###------------------------------------------------------------- SELF-TEST
 
 if __name__ == '__main__':
