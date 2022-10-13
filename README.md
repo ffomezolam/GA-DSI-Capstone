@@ -80,3 +80,31 @@ doing - poetry and rhyme. Unfortunately, they are both too high-level and too
 vague - some of them don't even provide examples of generated results. However
 based on these resources I have an idea on how to move forward, and am going to
 try a few options tomorrow, starting with an alternative model.
+
+- 2022-10-12: A few things today:
+
+  1. Trying to fit a text generating model on a larger dataset. Very slow on
+  my computer. Tried AWS with TensorFlow GPU but GPU didn't engage, and ran
+  out of memory. Sigh...
+
+  2. Decided for now to limit to Shakespeare only, because I decided on
+     a classification metric - Shakespearian or not? If I have time I'll expand
+     to more Elizabethan-era authors. Also determined a perplexity metric could
+     work.
+
+  3. Looked up possible classification models. Due to the complications of
+     transformers models, I'm probably going to go with one of the BERT models.
+     I've considered rolling my own in TensorFlow but it looks like there may
+     be far too much to learn to get there within the next few days (would
+     probably require me to start subclassing Keras layers etc. which I'm not
+     ready to dive into).
+
+  In light of time constraints, my probably-doable modeling plan is:
+
+  1. Get as strong of a text-generation model as I can via larger pre-trained
+     sets and longer fit runs.
+  2. Build a classification model that will give me an "is Shakespearian"
+     score.
+
+  Overall not close to what I was hoping in terms of success but it'll do for
+  what I'd consider the minimum requirements at least.
