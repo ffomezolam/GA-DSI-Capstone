@@ -108,7 +108,8 @@ try a few options tomorrow, starting with an alternative model.
      I've considered rolling my own in TensorFlow but it looks like there may
      be far too much to learn to get there within the next few days (would
      probably require me to start subclassing Keras layers etc. which I'm not
-     ready to dive into).
+     ready to dive into). I've coded a basic test classification model using
+     a mini-BERT pretrained model.
 
   In light of time constraints, my probably-doable modeling plan is:
 
