@@ -17,7 +17,7 @@ MODEL_NAME = 'test'
 MODEL_DIR = './models/'
 NUM_EPOCHS = 8
 
-MODEL_PATH = os.path.join(MODEL_DIR, f'{MODEL_TYPE}.{MODEL_NAME}.{str(NUM_EPOCHS)}')
+MODEL_PATH = os.path.join(MODEL_DIR, '%s.%s.%s' % (MODEL_TYPE, MODEL_NAME, str(NUM_EPOCHS)))
 
 RE_SENTENCE = re.compile(r'\w.*?[.?!:;]', re.S)
 RE_WHITESPACE = re.compile(r'\s+')
@@ -58,9 +58,9 @@ input = {
 }
 
 if args.verbose:
-    print(f'Poems: {len(input["poems"])}')
-    print(f'Sentences: {len(input["sentences"])}')
-    print(f'Lines: {len(input["lines"])}')
+    print('Poems: %d' % len(input['poems']))
+    print('Sentences: %d' % len(input['sentences']))
+    print('Lines: %d' % len(input['lines']))
 
 train_src = dict()
 test_src = dict()
@@ -71,11 +71,11 @@ for k, v in input.items():
 if args.verbose:
     print("TRAIN")
     for k, v in train_src.items():
-        print(f'{k}: {len(v)}')
+        print('%s: %d' % (k, len(v)))
 
     print("TEST")
     for k, v in test_src.items():
-        print(f'{k}: {len(v)}')
+        print('%s: %d' % (k, len(v)))
 
 train = dict()
 test = dict()
