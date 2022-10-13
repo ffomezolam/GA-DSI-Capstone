@@ -6,6 +6,11 @@ In progress.
 
 ## Project Goal (Problem Statement)
 
+Develop a text generation model that will imitate Shakespeare, and develop
+a classification metric to determine the extent that any text is Shakespearian,
+and use that metric to evaluate the model.
+
+### Old project goal (deprecated)
 Develop an AI model that can learn and imitate a writing style. Possible reach
 or limiting goals:
 
@@ -16,6 +21,10 @@ or limiting goals:
   - Can possibly train a model based on POS tags
   - Problem: generating speech from tags may be more difficult than generating
       from learned prediction
+
+## Summary
+
+Put summary here
 
 ## Progress and Findings
 
@@ -84,8 +93,10 @@ try a few options tomorrow, starting with an alternative model.
 - 2022-10-12: A few things today:
 
   1. Trying to fit a text generating model on a larger dataset. Very slow on
-  my computer. Tried AWS with TensorFlow GPU but GPU didn't engage, and ran
-  out of memory. Sigh...
+     my computer. Tried AWS with TensorFlow GPU but GPU didn't engage, and ran
+     out of memory. Sigh... I had gotten OK results running a small model on my
+     personal computer so I may just stick with that, or run overnight or
+     something...
 
   2. Decided for now to limit to Shakespeare only, because I decided on
      a classification metric - Shakespearian or not? If I have time I'll expand
@@ -108,3 +119,40 @@ try a few options tomorrow, starting with an alternative model.
 
   Overall not close to what I was hoping in terms of success but it'll do for
   what I'd consider the minimum requirements at least.
+
+## Data
+
+### Shakespeare Texts
+
+- Shakespeare's complete sonnets, from Gutenberg.org
+- Text from Shakespeare's complete plays, from Folger's Shakespeare API
+
+### Other Texts
+
+As needed for classification model. TBD.
+
+## Process
+
+### Text Preprocessing
+
+Cleaning partially automated to remove any preambles, licenses, and other text
+unrelated to content of work. Other cleaning manually performed to tidy up
+quirks of syntax:
+
+- double-dashes removed, replaced with commas; done to mitigate text-generator
+confusion
+
+- quotation marks removed; done to mitigate text-generator confusion and
+support more fluid text generation
+
+- headings removed, i.e. sonnet numbers; not relevant to text content
+
+- all explanatory text removed, including character names, stage directions,
+etc.; I considered these not relevant to the content
+
+### Modeling
+
+Used OpenAI's GPT2 pre-trained transformer model for text generation. Fit on
+sentences from all Shakespeare's works, as delimited by [.!?:;]
+
+Classification model TBD.
