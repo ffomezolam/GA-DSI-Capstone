@@ -1,0 +1,11 @@
+{
+    "MODEL_DIR": "../models/",
+    "DATA_DIR": "../data/",
+    "DEFAULT_N_EPOCHS": 4,
+    "DEFAULT_CAUSAL_MODEL": "distilgpt2",
+    "DEFAULT_CLASS_MODEL": "distilbert-base-uncased",
+    "DATA_SHAKESPEARE": [
+        "shakespeare-sonnets.clean.txt",
+        "shakespeareplays.txt"
+    ]
+}
