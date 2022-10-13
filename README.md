@@ -28,7 +28,7 @@ Put summary here
 
 ## Progress and Findings
 
-- 2022-10-06: Exploring possible models for generating sentences, currently
+- **2022-10-06**: Exploring possible models for generating sentences, currently
 HuggingFace GPT2, which wants to throw errors as often as possible. Have been
 able to generate conclusions to lines from Shakespeare's Sonnets, but these are
 not very promising so far, with only approx 2/10 generating usable phrases
@@ -40,7 +40,7 @@ feasible within the deadline. The hope was to combine generated words with POS
 tags to emulate poetry styles using fake words, resulting in something like
 Carroll's Jabberwocky.
 
-- 2022-10-07: End of work day progress report. After struggling for all
+- **2022-10-07**: End of work day progress report. After struggling for all
 yesterday and a good chunk of today with the transformers library, I think I'm
 finally making some progress, mostly thanks to some very hard to find write-ups
 on its usage. Unfortunately the documentation and tutorials do not give very
@@ -62,7 +62,7 @@ go back to cleaning and possibly sourcing additional text to feed the model:
   Also, I think I'm limiting my project scope to just generating sonnet-like text
 from a prompt or line. We'll see if that sticks.
 
-- 2022-10-10: I'm having trouble getting grips with the underlying workings of
+- **2022-10-10**: I'm having trouble getting grips with the underlying workings of
 the transformers model, so I've spent most of today and a good chunk of the
 weekend reviewing documentation, tutorials, and any articles I can find in the
 hopes that demystifying the model would allow me to do more with it.
@@ -84,13 +84,13 @@ hopes that demystifying the model would allow me to do more with it.
   that, the effort required is sure to sap all of the time available and I am
   not confident that I could have anything working by deadline.
 
-- 2022-10-11: Happened upon some other resources that are relevant to what I'm
+- **2022-10-11**: Happened upon some other resources that are relevant to what I'm
 doing - poetry and rhyme. Unfortunately, they are both too high-level and too
 vague - some of them don't even provide examples of generated results. However
 based on these resources I have an idea on how to move forward, and am going to
 try a few options tomorrow, starting with an alternative model.
 
-- 2022-10-12: A few things today:
+- **2022-10-12**: A few things today:
 
   1. Trying to fit a text generating model on a larger dataset. Very slow on
      my computer. Tried AWS with TensorFlow GPU but GPU didn't engage, and ran
@@ -121,6 +121,27 @@ try a few options tomorrow, starting with an alternative model.
   Overall not close to what I was hoping in terms of success but it'll do for
   what I'd consider the minimum requirements at least.
 
+- **2022-10-13**: As of 5pm today I have all of Shakespeare's works compiled
+and cleaned, and a number of other authors done, including a few
+Elizabethan-era sonnetteers, and some other early poetic works (e.g. Milton).
+Upon review my sentence classes are skewed about 4:1 in favor of Shakespeare,
+so I need more non-shakespeare material, which should be easy to do. I will
+blast through cleaning more material tonight.
+
+  An initial classification model using Shakespeare's sonnets and another
+author's sonnets works pleasantly, with great accuracy (predicts shakespeare
+over other author correctly 100% of the time in my really small test). I have yet to run the model on a larger dataset, but that small model ran fine on my 
+lesser computer in not too much time (20-30 mins for 10 epochs or so). Will 
+see tonight or tomorrow how much time it might take to get a larger set fit.
+
+  I have to explore possibilities of fitting my text generation model on the full
+Shakespeare dataset. Compared to 3-5 minutes per epoch for 2500 sentences, for
+76,000 or so I've had to wait 3-4 hours just for one epoch, and that's assuming
+my computer doesn't throttle power due to overheating. Will try AWS (again) and
+possibly Colab before tomorrow is done.
+
+  So far looking on track for a not-too-high-pressure completion by the deadline.
+
 ## Data
 
 ### Shakespeare Texts
@@ -131,6 +152,15 @@ try a few options tomorrow, starting with an alternative model.
 ### Other Texts
 
 As needed for classification model. TBD.
+
+## Libraries and Packages
+
+Third-party Python libraries used:
+
+- transformers
+- numpy
+- tensorflow
+- datasets
 
 ## Process
 
@@ -156,4 +186,5 @@ etc.; I considered these not relevant to the content
 Used OpenAI's GPT2 pre-trained transformer model for text generation. Fit on
 sentences from all Shakespeare's works, as delimited by [.!?:;]
 
-Classification model TBD.
+Classification model used a BERT attention transformer model for sequence
+classification. Fit on sentences from Shakespeare and other authors' works.
