@@ -26,11 +26,11 @@ def load_text_from_config(config='config.json'):
     other = load_text_files(config['DATA_OTHER'], config['DATA_DIR'])
     return shakespeare, other
 
-def label_data(yes_data, no_data):
+def get_labels(yes_data, no_data):
     "Apply category labels to data by turning lists into 2d arrays"
-    yes_data = [[item, 1] for item in yes_data]
-    no_data = [[item, 0] for item in no_data]
-    return yes_data, no_data
+    yes_labels = [1 for _ in yes_data]
+    no_labels = [0 for _ in no_data]
+    return yes_labels, no_labels
 
 def load_text_files(fns, data_dir):
     "Load and join all files in `fns` list"
@@ -45,16 +45,56 @@ def load_text_files(fns, data_dir):
     return '\n'.join(data)
 
 def get_dataset_from_config(config='config.json'):
-    "get prepped dataset from config object or file"
+    """
+    Get dataset in format [[(text, label_0), ...],[(text, label_1), ...]]
+    from config object or file
+    """
     shakespeare, other = load_text_from_config(config)
     shakespeare = extract_sentences(shakespeare)
     other = extract_sentences(other)
-    shakespeare, other = label_data(shakespeare, other)
-    return shakespeare + other
+    s_labels, o_labels = get_labels(shakespeare, other)
+    return [list(zip(other, o_labels)), list(zip(shakespeare, s_labels))]
 
-def train_val_test_split(data, test_ratio=0.1, shuffle=True):
-    "wrapper for sklearn tts to add validation split"
-    pass
+def train_test_val_split(data, test_ratio=0.1):
+    "custom train test split to add validation split"
+    splits = {'train': list(),
+              'test': list(),
+              'val': list()}
+
+    val_ratio = test_ratio * test_ratio
+
+    len0 = len(data[0])
+    len1 = len(data[1])
+    test_len0 = int(len0 * test_ratio) or 1
+    test_len1 = int(len1 * test_ratio) or 1
+    val_len0 = int(len0 * val_ratio) or 1
+    val_len1 = int(len1 * val_ratio) or 1
+
+    sampled_0 = random.sample(data[0], len0)
+    sampled_1 = random.sample(data[1], len1)
+    sampled_0_test = sampled_0[:test_len0]
+    sampled_0 = sampled_0[test_len0:]
+    sampled_1_test = sampled_1[:test_len1]
+    sampled_1 = sampled_1[test_len1:]
+    sampled_0_val = sampled_0[:val_len0]
+    sampled_0 = sampled_0[val_len0:]
+    sampled_1_val = sampled_1[:val_len1]
+    sampled_1 = sampled_1[val_len1:]
+
+    train = sampled_0 + sampled_1
+    test = sampled_0_test + sampled_1_test
+    val = sampled_0_val + sampled_1_val
+
+    return {
+        'train': random.sample(train, len(train)),
+        'test': random.sample(test, len(test)),
+        'val': random.sample(val, len(val))
+    }
+
+def split_text_and_labels(ds):
+    text = [i[0] for i in ds]
+    labels = [i[1] for i in ds]
+    return {'text': text, 'labels': labels}
 
 #--- TEXT PROCESSING
 
