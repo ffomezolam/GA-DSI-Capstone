@@ -21,7 +21,7 @@ def load_config(fn='config.json'):
 
 def load_text_from_config(config='config.json'):
     "Load data from config object or file"
-    if config[-5:] == '.json': config = load_config(config)
+    if type(config) == str and config[-5:] == '.json': config = load_config(config)
     shakespeare = load_text_files(config['DATA_SHAKESPEARE'], config['DATA_DIR'])
     other = load_text_files(config['DATA_OTHER'], config['DATA_DIR'])
     return shakespeare, other
@@ -44,7 +44,7 @@ def load_text_files(fns, data_dir):
 
     return '\n'.join(data)
 
-def get_dataset_from_config(config='config.json'):
+def get_dataset_from_config(config='config.json', limit=1):
     """
     Get dataset in format [[(text, label_0), ...],[(text, label_1), ...]]
     from config object or file
@@ -52,6 +52,27 @@ def get_dataset_from_config(config='config.json'):
     shakespeare, other = load_text_from_config(config)
     shakespeare = extract_sentences(shakespeare)
     other = extract_sentences(other)
+
+    # limiit has been specified
+    if limit > 0 and limit != 1:
+        s_len = len(shakespeare)
+        o_len = len(other)
+
+        # limit is ratio
+        if limit < 1:
+            shakespeare = shakespeare[:int(s_len * limit)]
+            other = other[:int(o_len * limit)]
+
+        # limit is absolute
+        elif limit > 1:
+            tot = s_len + o_len
+            s_rat = s_len / tot
+            o_rat = o_len / tot
+            s_lim = int(limit * s_rat)
+            o_lim = int(limit * o_rat)
+            shakespeare = shakespeare[:s_lim]
+            other = other[:o_lim]
+
     s_labels, o_labels = get_labels(shakespeare, other)
     return [list(zip(other, o_labels)), list(zip(shakespeare, s_labels))]
 
