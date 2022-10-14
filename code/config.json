@@ -24,7 +24,9 @@
         "lovell_robert_and_southey_robert-poems.clean.txt",
         "milton_john-poetical_works.clean.txt",
         "seward_anna-sonnets-and-odes.clean.txt",
-        "shelley_percy-complete_poetic_works.clean.txt"
+        "shelley_percy-complete_poetic_works.clean.txt",
+        "wilde_oscar-poems.clean.txt",
+        "wilde_oscar-selected_prose.txt"
     ],
     "N_SAMPLES": 0
 }
