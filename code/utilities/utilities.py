@@ -19,14 +19,12 @@ def load_config(fn='config.json'):
     with open(fn, 'r') as jsf:
         return json.load(jsf)
 
-def load_data_from_config(config='config.json'):
-    "Load and label data from config object or file"
+def load_text_from_config(config='config.json'):
+    "Load data from config object or file"
     if config[-5:] == '.json': config = load_config(config)
     shakespeare = load_text_files(config['DATA_SHAKESPEARE'], config['DATA_DIR'])
     other = load_text_files(config['DATA_OTHER'], config['DATA_DIR'])
-
-    shakespeare, other = label_data(shakespeare, other)
-    return shakespeare + other
+    return shakespeare, other
 
 def label_data(yes_data, no_data):
     "Apply category labels to data by turning lists into 2d arrays"
@@ -45,6 +43,14 @@ def load_text_files(fns, data_dir):
             data.append(' '.join(lines))
 
     return '\n'.join(data)
+
+def get_dataset_from_config(config='config.json'):
+    "get prepped dataset from config object or file"
+    shakespeare, other = load_text_from_config(config)
+    shakespeare = extract_sentences(shakespeare)
+    other = extract_sentences(other)
+    shakespeare, other = label_data(shakespeare, other)
+    return shakespeare + other
 
 def train_val_test_split(data, test_ratio=0.1, shuffle=True):
     "wrapper for sklearn tts to add validation split"
