@@ -1,28 +1,24 @@
 {
     "MODEL_DIR": "../models/",
     "DATA_DIR": "../data/",
-    "DEFAULT_N_EPOCHS": 4,
-    "DEFAULT_CAUSAL_MODEL": "distilgpt2",
-    "DEFAULT_CLASS_MODEL": "distilbert-base-uncased",
-    "DEFAULT_MODEL_NAME": "shakespeare",
+    "N_EPOCHS": 4,
+    "CAUSAL_MODEL": "distilgpt2",
+    "CLASS_MODEL": "distilbert-base-uncased",
+    "MODEL_NAME": "shakespeare",
     "DATA_SHAKESPEARE": [
         "shakespeare-sonnets.clean.txt",
         "shakespeareplays.txt"
     ],
-    "DATA_NOT_SHAKESPEARE": {
-        "elizabethan": [
-            "daniel_samuel_and_constable_henry-elizabethan_sonnet_cycles.clean.txt",
-            "drayton_michael_et_al-elizabethan_sonnet_cycles.clean.txt",
-            "lodge_thomas_and_fletcher_giles-elizabethan_sonnet_cycles.clean.txt"
-        ],
-        "other": [
-            "milton_john-poetical_works.clean.txt",
-            "belloc_hilaire-sonnets_and_verse.clean.txt",
-            "browning_elizabeth-sonnets_from_the_portuguese.clean.txt",
-            "farjeon_eleanor-sonnets_and_poems.clean.txt",
-            "lovell_robert_and_southey_robert-poems.clean.txt",
-            "seward_anna-sonnets-and-odes.clean.txt"
-        ]
-    },
+    "DATA_OTHER": [
+        "daniel_samuel_and_constable_henry-elizabethan_sonnet_cycles.clean.txt",
+        "drayton_michael_et_al-elizabethan_sonnet_cycles.clean.txt",
+        "lodge_thomas_and_fletcher_giles-elizabethan_sonnet_cycles.clean.txt",
+        "milton_john-poetical_works.clean.txt",
+        "belloc_hilaire-sonnets_and_verse.clean.txt",
+        "browning_elizabeth-sonnets_from_the_portuguese.clean.txt",
+        "farjeon_eleanor-sonnets_and_poems.clean.txt",
+        "lovell_robert_and_southey_robert-poems.clean.txt",
+        "seward_anna-sonnets-and-odes.clean.txt"
+    ],
     "N_SAMPLES": 0
 }
