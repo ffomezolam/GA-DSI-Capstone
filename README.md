@@ -2,165 +2,53 @@
 
 Repo for the capstone project for GA DSI 725
 
-In progress.
-
 ## Project Goal (Problem Statement)
 
 Develop a text generation model that will imitate Shakespeare, and develop
 a classification metric to determine the extent that any text is Shakespearian,
 and use that metric to evaluate the model.
 
-### Old project goal (deprecated)
-Develop an AI model that can learn and imitate a writing style. Possible reach
-or limiting goals:
-
-- Limit scope to poetry, or a particular form of poetry, i.e. sonnet
-  - Probably will need to use some form of transformer model to generate text
-  - Problem: how to handle poetic metre?
-- Generalize by POS tagging
-  - Can possibly train a model based on POS tags
-  - Problem: generating speech from tags may be more difficult than generating
-      from learned prediction
-
 ## Summary
 
-Put summary here
+Text processing is one of the many applications for neural networks. Most
+recently, transformer models have taken on the role of analyzing and processing
+text, with applications in the fields of text translation, text generation, and
+text classification. This project applies such models to generate and classify
+text based on the works of William Shakespeare.
 
-## Progress and Findings
-
-- **2022-10-06**: Exploring possible models for generating sentences, currently
-HuggingFace GPT2, which wants to throw errors as often as possible. Have been
-able to generate conclusions to lines from Shakespeare's Sonnets, but these are
-not very promising so far, with only approx 2/10 generating usable phrases
-
-  I have also been working on a word generator based off a custom trie
-implementation of something like a markov chain, but developing what is
-essentially a basic model from scratch seems like it may take too long to be
-feasible within the deadline. The hope was to combine generated words with POS
-tags to emulate poetry styles using fake words, resulting in something like
-Carroll's Jabberwocky.
-
-- **2022-10-07**: End of work day progress report. After struggling for all
-yesterday and a good chunk of today with the transformers library, I think I'm
-finally making some progress, mostly thanks to some very hard to find write-ups
-on its usage. Unfortunately the documentation and tutorials do not give very
-clear explanation about what things do, so I've been forced to piece it
-together from code snippets and often ambiguously-worded write-ups and
-code-alongs.
-
-  I've gotten the model to start spitting out decent sounding text that doesn't
-end up in an endless loop. So that's good. Unfortunately, looks like I have to
-go back to cleaning and possibly sourcing additional text to feed the model:
-
-  1. Additional cleaning needs to be done to handle weird apostraphes, quotes,
-   underscores, and anything else that might mess up the tokenizer. I'm going
-   maximum brute force here.
-  2. I feel like I need to feed more text to the model. Not worried about getting
-   the text - I'm more worried about speed of fitting the model. If necessary
-   I'll grab AWS for it. More to come over the weekend!
-
-  Also, I think I'm limiting my project scope to just generating sonnet-like text
-from a prompt or line. We'll see if that sticks.
-
-- **2022-10-10**: I'm having trouble getting grips with the underlying workings of
-the transformers model, so I've spent most of today and a good chunk of the
-weekend reviewing documentation, tutorials, and any articles I can find in the
-hopes that demystifying the model would allow me to do more with it.
-
-  Progress is very slow and incremental. For example, it took me all day today
-  to finally find out how to stop getting repeating text generating from the
-  same prompt - no documentation told me I should be exporting 'tf' tensors in
-  order to use sampling, but all the tutorials showed tokenizer returning 'np'
-  tensors. Annoying... So it's basically trial and error in order to learn how
-  this works. Still, I'm glad that after what seemed like a day of pointless
-  busywork, I've made one small improvement.
-
-  So in conclusion, I've got a model that seems to be sensitive to the training
-  input and generates text that is somewhat imitative of the training input,
-  which has been my main goal. However, I am no closer to poetic verse, and
-  I think the poem idea has to be abandoned, as handling rhymes seems to be
-  not trivial. **Or** I lean in to the rhyming aspect and try to build
-  something that rhymes, and that's the product. As much as I'd love to do
-  that, the effort required is sure to sap all of the time available and I am
-  not confident that I could have anything working by deadline.
-
-- **2022-10-11**: Happened upon some other resources that are relevant to what I'm
-doing - poetry and rhyme. Unfortunately, they are both too high-level and too
-vague - some of them don't even provide examples of generated results. However
-based on these resources I have an idea on how to move forward, and am going to
-try a few options tomorrow, starting with an alternative model.
-
-- **2022-10-12**: A few things today:
-
-  1. Trying to fit a text generating model on a larger dataset. Very slow on
-     my computer. Tried AWS with TensorFlow GPU but GPU didn't engage, and ran
-     out of memory. Sigh... I had gotten OK results running a small model on my
-     personal computer so I may just stick with that, or run overnight or
-     something...
-
-  2. Decided for now to limit to Shakespeare only, because I decided on
-     a classification metric - Shakespearian or not? If I have time I'll expand
-     to more Elizabethan-era authors. Also determined a perplexity metric could
-     work.
-
-  3. Looked up possible classification models. Due to the complications of
-     transformers models, I'm probably going to go with one of the BERT models.
-     I've considered rolling my own in TensorFlow but it looks like there may
-     be far too much to learn to get there within the next few days (would
-     probably require me to start subclassing Keras layers etc. which I'm not
-     ready to dive into). I've coded a basic test classification model using
-     a mini-BERT pretrained model.
-
-  In light of time constraints, my probably-doable modeling plan is:
-
-  1. Get as strong of a text-generation model as I can via larger pre-trained
-     sets and longer fit runs.
-  2. Build a classification model that will give me an "is Shakespearian"
-     score.
-
-  Overall not close to what I was hoping in terms of success but it'll do for
-  what I'd consider the minimum requirements at least.
-
-- **2022-10-13**: As of 5pm today I have all of Shakespeare's works compiled
-and cleaned, and a number of other authors done, including a few
-Elizabethan-era sonnetteers, and some other early poetic works (e.g. Milton).
-Upon review my sentence classes are skewed about 4:1 in favor of Shakespeare,
-so I need more non-shakespeare material, which should be easy to do. I will
-blast through cleaning more material tonight.
-
-  An initial classification model using Shakespeare's sonnets and another
-author's sonnets works pleasantly, with great accuracy (predicts shakespeare
-over other author correctly 100% of the time in my really small test). I have yet to run the model on a larger dataset, but that small model ran fine on my 
-lesser computer in not too much time (20-30 mins for 10 epochs or so). Will 
-see tonight or tomorrow how much time it might take to get a larger set fit.
-
-  I have to explore possibilities of fitting my text generation model on the full
-Shakespeare dataset. Compared to 3-5 minutes per epoch for 2500 sentences, for
-76,000 or so I've had to wait 3-4 hours just for one epoch, and that's assuming
-my computer doesn't throttle power due to overheating. Will try AWS (again) and
-possibly Colab before tomorrow is done.
-
-  So far looking on track for a not-too-high-pressure completion by the deadline.
+It was previously a goal of mine to develop a model to generate Shakespearean
+verse, but this turned out to be a bit overly ambitious. It turns out some
+serious academic research has been done on poetry generation, and it is very
+complex and difficult as it requires additional consideration of rhyme and
+meter. It is therefore my humble intent to generate text that
+merely sounds vaguely Shakespearean (ignoring rhyme and meter), and a scoring system to score text based
+on it's "Shakespeareanness". I believe that, on a rudimentary level, this was
+accomplished here.
 
 ## Data
 
+See `data` folder.
+
 ### Shakespeare Texts
 
-- Shakespeare's complete sonnets, from Gutenberg.org
-- Text from Shakespeare's complete plays, from Folger's Shakespeare API
+- Shakespeare's complete sonnets, from [Gutenberg.org](https://gutenberg.org/)
+- Text from Shakespeare's complete plays, from [Folger's Shakespeare
+API](https://folgerdigitaltexts.org/api)
 
 ### Other Texts
 
-As needed for classification model. TBD.
+As needed for classification model, from [Gutenberg.org](https://gutenberg.org/) and procedurally generated via base GPT2 content. Authors:
+
+-
 
 ## Libraries and Packages
 
 Third-party Python libraries used:
 
-- transformers
-- numpy
-- tensorflow
-- datasets
+- [`transformers`](https://huggingface.co/docs/transformers/index)
+- [`numpy`](https://numpy.org/)
+- [`tensorflow`](https://www.tensorflow.org/)
+- [`datasets`](https://huggingface.co/docs/datasets/index)
 
 ## Process
 
@@ -170,21 +58,26 @@ Cleaning partially automated to remove any preambles, licenses, and other text
 unrelated to content of work. Other cleaning manually performed to tidy up
 quirks of syntax:
 
-- double-dashes removed, replaced with commas; done to mitigate text-generator
-confusion
-
 - quotation marks removed; done to mitigate text-generator confusion and
 support more fluid text generation
 
 - headings removed, i.e. sonnet numbers; not relevant to text content
 
+- special characters removed, i.e. brackets: not relevant to text content,
+often indicating non-content information (such as footnote reference)
+
 - all explanatory text removed, including character names, stage directions,
-etc.; I considered these not relevant to the content
+footnotes, other notes (whether by author or otherwise), etc.; I considered these not relevant to the content
 
 ### Modeling
 
-Used OpenAI's GPT2 pre-trained transformer model for text generation. Fit on
-sentences from all Shakespeare's works, as delimited by [.!?:;]
+Used OpenAI's GPT2 pre-trained transformer model as implemented by Hugging
+Face's `transformers` library for text generation. Fit on
+sentences from all Shakespeare's works, as delimited by ``[.!?:;]``.
 
-Classification model used a BERT attention transformer model for sequence
-classification. Fit on sentences from Shakespeare and other authors' works.
+Classification model used a BERT attention transformer model as implemented by
+Hugging Face's `transformers` library for sequence
+classification. Fit on sentences from Shakespeare and other authors' works,
+labelled to identify which sentences were from Shakespeare's works, and which
+were from other works. The fit BERT model could then classify arbitrary text
+into "Shakespearean" or "Not Shakespearean" categories.
