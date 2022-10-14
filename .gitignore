@@ -1,5 +1,6 @@
 .*
 _*
 !.gitignore
-models
+models/*
+!models/*.md
 data/*.csv
