@@ -3,9 +3,12 @@
 Support definitions
 """
 
-from transformers import AutoTokenizer, TFAutoModelForCausalLM
+from transformers import AutoTokenizer
+from transformers import TFAutoModelForCausalLM, TFAutoModelForSequenceClassification
 
 from sklearn.model_selection import train_test_split
+
+import numpy as np
 
 import re
 import os
@@ -16,12 +19,16 @@ import json
 
 def load_config(fn='config.json'):
     "Get specified config file from disk"
-    with open(fn, 'r') as jsf:
-        return json.load(jsf)
+    if type(fn) == str:
+        with open(fn, 'r') as jsf:
+            return json.load(jsf)
+    else:
+        # assume it's an already-loaded config if not string
+        return fn
 
 def load_text_from_config(config='config.json'):
     "Load data from config object or file"
-    if type(config) == str and config[-5:] == '.json': config = load_config(config)
+    config = load_config(config)
     shakespeare = load_text_files(config['DATA_SHAKESPEARE'], config['DATA_DIR'])
     other = load_text_files(config['DATA_OTHER'], config['DATA_DIR'])
     return shakespeare, other
@@ -139,8 +146,32 @@ def extract_sentences(text):
 
 #--- MODEL SUPPORT
 
-def train_test_split(text, test_size=0.1, shuffle=False):
-    pass
+def get_model_path(config='config.json', model_type='causal'):
+    "get model path from config"
+    cfgvars = load_config(config)
+
+    mtype = 'CAUSAL' if model_type == 'causal' else 'CLASS'
+    print(model_type)
+
+    dir = cfgvars['MODEL_DIR']
+    name = cfgvars['MODEL_NAME']
+    type = cfgvars[f'{mtype}_MODEL']
+    epochs = cfgvars[f'{mtype}_N_EPOCHS']
+
+    model_dirname = f'{name}.{type}.{epochs}'
+    return os.path.join(dir, model_dirname)
+
+def load_model(path, type='causal'):
+    if not os.path.exists(path):
+        raise FileNotFoundError(f'Model path not found: {path}')
+
+    if type == 'causal':
+        return TFAutoModelForCausalLM.from_pretrained(path)
+    else:
+        return TFAutoModelForSequenceClassification.from_pretrained(path)
+
+def load_tokenizer(type):
+    return AutoTokenizer.from_pretrained(type)
 
 def generate_from(text, model, tokenizer,
                   max=100,
@@ -159,6 +190,25 @@ def generate_from(text, model, tokenizer,
                             length_penalty=len_penalty,
                             num_return_sequences=n_seq)
     return tokenizer.decode(output[0], skip_special_tokens=True)
+
+class ClassificationResult:
+    def __init__(self, text, outputs):
+        self.text = text
+        self.outputs = outputs
+        self.c = self.classifications = self.classify()
+        self.p = self.s = self.scores = self.probs = self.get_prob()
+
+    def classify(self):
+        return np.argmax(self.outputs.logits, axis=1)
+
+    def get_prob(self):
+        logits = self.outputs.logits
+        return (np.exp(logits) / (1 + np.exp(logits)))[:,1]
+
+def classify_from(text, model, tokenizer):
+    tokens = tokenizer(text, return_tensors='tf', padding=True)
+    output = model(tokens)
+    return ClassificationResult(text, output)
 
 ###------------------------------------------------------------- SELF-TEST
 
