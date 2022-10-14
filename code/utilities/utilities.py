@@ -1,34 +1,87 @@
-""" word_deconstructor.py
+""" utilities.py
 -------------------------
-Operations for deconstructing text into words
+Support definitions
 """
 
-import re
 from transformers import AutoTokenizer, TFAutoModelForCausalLM
-from rbapi import get_rhymes as rbrhymes
+
+from sklearn.model_selection import train_test_split
+
+import re
+import os
+import random
+import json
+
+#--- DATA SUPPORT
+
+def load_config(fn='config.json'):
+    "Get specified config file from disk"
+    with open(fn, 'r') as jsf:
+        return json.load(jsf)
+
+def load_data_from_config(config='config.json'):
+    "Load and label data from config object or file"
+    if config[-5:] == '.json': config = load_config(config)
+    shakespeare = load_text_files(config['DATA_SHAKESPEARE'], config['DATA_DIR'])
+    other = load_text_files(config['DATA_OTHER'], config['DATA_DIR'])
+
+    shakespeare, other = label_data(shakespeare, other)
+    return shakespeare + other
+
+def label_data(yes_data, no_data):
+    "Apply category labels to data by turning lists into 2d arrays"
+    yes_data = [[item, 1] for item in yes_data]
+    no_data = [[item, 0] for item in no_data]
+    return yes_data, no_data
+
+def load_text_files(fns, data_dir):
+    "Load and join all files in `fns` list"
+    data = list()
+    if type(fns) == str: fns = [fns]
+    for fn in fns:
+        path = os.path.join(data_dir, fn)
+        with open(path, 'r') as f:
+            lines = [line.strip() for line in f.readlines() if line.strip()]
+            data.append(' '.join(lines))
+
+    return '\n'.join(data)
+
+def train_val_test_split(data, test_ratio=0.1, shuffle=True):
+    "wrapper for sklearn tts to add validation split"
+    pass
 
 #--- TEXT PROCESSING
 
+## Useful regexes
 RE_WORD = re.compile(r"\b[\w'’]+\b")
 RE_WHITESPACE = re.compile(r'\s+')
-RE_SENTENCE = re.compile(r'\w.*?[.?!]', re.S)
+RE_SENTENCE = re.compile(r'\w.*?[.?!:;]', re.S)
 RE_PUNCTUATION = re.compile(r'[.,?!;:]')
+RE_BLANKLINE = re.compile(r'\n\n')
 
+## functions
 def extract_words(text, n=1):
+    "split text into words based on regex"
     return RE_WORD.findall(text)
 
 def extract_sentences(text):
-    return RE_SENTENCE.findall(text)
+    "split text into sentences based on regex"
+    sentences =  RE_SENTENCE.findall(text)
+    sentences = [RE_WHITESPACE.sub(' ', sentence) for sentence in sentences]
+    return sentences
 
 #--- MODEL SUPPORT
 
-def make_tokenizer(type):
-    return AutoTokenizer.from_pretrained(type)
+def train_test_split(text, test_size=0.1, shuffle=False):
+    pass
 
-def make_model(type):
-    return TFAutoModelForCausalLM.from_pretrained(type)
-
-def generate_from(text, model, tokenizer, max=100, temp=1, k=50, rep_penalty=1.5, len_penalty=0.75, n_seq=1):
+def generate_from(text, model, tokenizer,
+                  max=100,
+                  temp=1,
+                  k=50,
+                  rep_penalty=1.5,
+                  len_penalty=0.75,
+                  n_seq=1):
     tokens = tokenizer(text, return_tensors='tf')
     output = model.generate(**tokens,
                             do_sample=True,
@@ -40,45 +93,6 @@ def generate_from(text, model, tokenizer, max=100, temp=1, k=50, rep_penalty=1.5
                             num_return_sequences=n_seq)
     return tokenizer.decode(output[0], skip_special_tokens=True)
 
-#--- RHYMING
-
-def get_rhymes(blob):
-    # convert to list
-    if not type(blob) == list:
-        blob = [line.strip() for line in blob.split('\n') if line.strip()]
-
-    blob = [line.lower() for line in blob]
-
-    final_words = [line.split()[-1] for line in blob]
-    final_words = [word[:-1] if RE_PUNCTUATION.match(word[-1]) else word for word in final_words]
-
-    rhymes = dict()
-
-    for ix in range(len(final_words)):
-        iword = final_words[ix]
-        rhymes[iword] = list()
-        irhymes = rbrhymes(iword)
-        for jx in range(len(final_words)):
-            if ix == jx: continue
-            jword = final_words[jx]
-            is_rhyme = (jword in irhymes) or (suffix_similarity(iword, jword) > 2)
-            rhymes[iword].append((is_rhyme, jword))
-
-    return rhymes
-
-def suffix_similarity(word1, word2):
-    # brute force rhyme test based on concluding letter similarity
-    word1 = word1.lower()
-    word2 = word2.lower()
-
-    count = 0
-
-    for i in range(len(word1)):
-        if i >= len(word2): break
-        ix = -i
-        if word1[ix] == word2[ix]: count += 1
-
-    return count
 ###------------------------------------------------------------- SELF-TEST
 
 if __name__ == '__main__':
