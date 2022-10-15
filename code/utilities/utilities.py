@@ -151,7 +151,6 @@ def get_model_path(config='config.json', model_type='causal'):
     cfgvars = load_config(config)
 
     mtype = 'CAUSAL' if model_type == 'causal' else 'CLASS'
-    print(model_type)
 
     dir = cfgvars['MODEL_DIR']
     name = cfgvars['MODEL_NAME']
@@ -204,6 +203,12 @@ class ClassificationResult:
     def get_prob(self):
         logits = self.outputs.logits
         return (np.exp(logits) / (1 + np.exp(logits)))[:,1]
+
+    def get_results(self):
+        return list(zip(self.text, self.c, self.s))
+
+    def __iter__(self):
+        return zip(self.text, self.c, self.s)
 
 def classify_from(text, model, tokenizer):
     tokens = tokenizer(text, return_tensors='tf', padding=True)

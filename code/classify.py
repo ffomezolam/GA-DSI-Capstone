@@ -21,7 +21,7 @@ if __name__ == '__main__':
     argp.add_argument('infile', nargs='?', type=argparse.FileType('r'),
                       default=sys.stdin)
 
-    argp.add_argument('-c', '--config', type=str, default='config.json',
+    argp.add_argument('-c', '--config', type=str, default='config-test.json',
                       help="config file path")
 
     args = argp.parse_args()
@@ -33,6 +33,7 @@ if __name__ == '__main__':
     model_path = get_model_path(cfg, 'class')
 
     tokenizer = load_tokenizer(cfg['CLASS_MODEL'])
+
     model = load_model(model_path, 'class')
 
     text = args.infile.read()
@@ -40,4 +41,5 @@ if __name__ == '__main__':
 
     result = classify_from(text, model, tokenizer)
 
-    print(result.text, result.c, result.s)
+    for item in result:
+        print(f'text: {item[0]}\nclass: {item[1]}\nscore: {item[2]}\n\n')
