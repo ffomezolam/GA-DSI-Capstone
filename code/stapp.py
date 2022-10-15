@@ -43,10 +43,27 @@ quotes = {
     ]
 }
 
+text_for_score = [
+    "absolutely not",
+    "not",
+    "not very",
+    "maybe",
+    "slightly",
+    "somewhat",
+    "very",
+    "almost perfectly",
+    "perfectly"
+]
+
 def get_quote(cat='neutral'):
     qs = quotes[cat]
     qlen = len(qs)
     return qs[random.randint(0,qlen-1)]
+
+def get_score_text(prob):
+    slen = len(text_for_score)
+    score = int(prob * slen)
+    return text_for_score[score]
 
 st.title("Are You Shakespearean?")
 st.write('*' + get_quote('neutral') + '*')
@@ -90,6 +107,8 @@ def score_text(text):
     st.write(f'*"{quote}"*')
 
     st.subheader("Score")
-    st.write(str(round((float(classification[2]) * 100), 2)))
+    prob = classification[2]
+    st.write(str(round(float(prob), 3)))
+    st.write(f'Your text is *{get_score_text(prob)} Shakespearean*')
 
 if text: score_text(text)
