@@ -26,7 +26,7 @@ quotes = {
         "All's well that ends well",
         "How noble in reason! how infinite in faculty!",
         "The beauty of the world! the paragon of animals!",
-        "Good name in mand and woman, my dear lord, is the immediate jewel of their sould"
+        "Good name in man and woman, my dear lord, is the immediate jewel of their souls"
     ],
     "negative": [
         "You speak an infinite deal of nothing",
@@ -64,12 +64,12 @@ class_tokenizer = load_tokenizer(cfg['CLASS_MODEL'])
 class_model = load_model(class_model_path, 'class')
 
 text = st.text_input("Input")
-generate = st.checkbox("Generate follow-up text")
+generate = st.checkbox("Generate follow-up text", value=0)
 sentence = 0
 if generate:
     sentence = st.checkbox("One sentence out", value=1)
 
-def generate(text):
+def score_text(text):
     if generate:
         gen = generate_from(text, causal_model, causal_tokenizer)
         if sentence:
@@ -90,6 +90,6 @@ def generate(text):
     st.write(f'*"{quote}"*')
 
     st.subheader("Score")
-    st.write(classification[2])
+    st.write(str(round((float(classification[2]) * 100), 2)))
 
-if text: generate(text)
+if text: score_text(text)
