@@ -207,6 +207,11 @@ class ClassificationResult:
     def get_results(self):
         return list(zip(self.text, self.c, self.s))
 
+    def accuracy(self, true_labels):
+        if len(true_labels) != len(self.c):
+            raise Exception(f'label number mismatch between predicted and actual')
+        n = len(self.c)
+
     def __iter__(self):
         return zip(self.text, self.c, self.s)
 
