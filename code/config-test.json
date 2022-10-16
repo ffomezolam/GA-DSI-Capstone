@@ -1,12 +1,13 @@
 {
+    "RANDOM_SEED": 1,
     "MODEL_DIR": "../models/",
     "DATA_DIR": "../data/",
-    "CAUSAL_N_EPOCHS": 4,
-    "CLASS_N_EPOCHS": 8,
+    "CAUSAL_N_EPOCHS": 1,
+    "CLASS_N_EPOCHS": 1,
     "BATCH_SIZE": 16,
     "CAUSAL_MODEL": "distilgpt2",
     "CLASS_MODEL": "distilbert-base-uncased",
-    "MODEL_NAME": "shakespeare-farjeon",
+    "MODEL_NAME": "shakespeare-test",
     "DATA_SHAKESPEARE": [
         "shakespeare-sonnets.clean.txt",
         "shakespeareplays.txt"
@@ -29,5 +30,5 @@
         "wilde_oscar-selected_prose.txt",
         "gpt2-text.txt"
     ],
-    "N_SAMPLES": 0
+    "N_SAMPLES": 1500
 }

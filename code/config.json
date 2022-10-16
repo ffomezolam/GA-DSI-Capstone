@@ -1,8 +1,9 @@
 {
+    "RANDOM_SEED": 1,
     "MODEL_DIR": "../models/",
     "DATA_DIR": "../data/",
-    "CAUSAL_N_EPOCHS": 4,
-    "CLASS_N_EPOCHS": 8,
+    "CAUSAL_N_EPOCHS": 8,
+    "CLASS_N_EPOCHS": 2,
     "BATCH_SIZE": 16,
     "CAUSAL_MODEL": "distilgpt2",
     "CLASS_MODEL": "distilbert-base-uncased",

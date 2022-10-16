@@ -83,8 +83,10 @@ def get_dataset_from_config(config='config.json', limit=1):
     s_labels, o_labels = get_labels(shakespeare, other)
     return [list(zip(other, o_labels)), list(zip(shakespeare, s_labels))]
 
-def train_test_val_split(data, test_ratio=0.1):
+def train_test_val_split(data, test_ratio=0.1, seed=None):
     "custom train test split to add validation split"
+    random.seed(seed)
+
     splits = {'train': list(),
               'test': list(),
               'val': list()}
@@ -179,7 +181,7 @@ def generate_from(text, model, tokenizer,
                   rep_penalty=1.5,
                   len_penalty=0.75,
                   n_seq=1):
-    tokens = tokenizer(text, return_tensors='tf')
+    tokens = tokenizer(text, return_tensors='tf', padding=True)
     output = model.generate(**tokens,
                             do_sample=True,
                             max_new_tokens=max,
@@ -206,11 +208,6 @@ class ClassificationResult:
 
     def get_results(self):
         return list(zip(self.text, self.c, self.s))
-
-    def accuracy(self, true_labels):
-        if len(true_labels) != len(self.c):
-            raise Exception(f'label number mismatch between predicted and actual')
-        n = len(self.c)
 
     def __iter__(self):
         return zip(self.text, self.c, self.s)

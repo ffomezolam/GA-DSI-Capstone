@@ -68,7 +68,7 @@ def get_score_text(prob):
 st.title("Are You Shakespearean?")
 st.write('*' + get_quote('neutral') + '*')
 
-CONFIG_FILE = 'config-test.json'
+CONFIG_FILE = 'config.json'
 
 cfg = load_config(CONFIG_FILE)
 causal_model_path = get_model_path(cfg, 'causal')
