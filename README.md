@@ -227,10 +227,14 @@ The sentence fragments were short portions of sentences from each set, which
 were fed to the causal model to generate data, which was limited to only the
 first sentence of that data. This was fed to the classifier.
 
-The classification results showed the highest positive (Shakespearean)
+In one run, the classification results showed the highest positive (Shakespearean)
 classifications for sentences generated from fragment  sourced from Shakespeare's works.
 The other two categories (wines and other) showed 68% and 49% Shakespearean
-results, respectively.
+results, respectively. In another run, the scores were:
+
+- Wines: 63% Shakespearean
+- Shakespeare: 99% Shakespearean
+- Other: 61% Shakespearean
 
 So, as probably should be expected, Shakespearean in tends to Shakespearean
 out. But the reasonably high success rate in the other categories would suggest
