@@ -47,19 +47,23 @@ should be able to figure that out on its own with the right input.
 And I think, on a rudimentary level, I have accomplished this here.
 
 Text generation output is hard to evaluate, hence my decision to incorporate
-a classification model. To be honest, I just enjoy the ideation of
-computer-aided-improvisation, so I would not be so picky to judge
-a computer-generated text so long as it vaguely fit my criteria, which in this
-case was "Shakespearean". Most of my output did so, so I was happy with the
-text generator. However, in the interest of definable metrics, I have
-incorporated a classification model which has been trained on various works of
+a classification model.
+A metric exists, called the "perplexity" metric, to evaluate text-generation
+models, but due to compatibility and dependency issues I did not implement one
+here.
+To be honest, I just enjoy the ideation of computer-aided-improvisation, so I
+would not be so picky to judge a computer-generated text so long as it vaguely
+fit my criteria, which in this case was "Shakespearean".
+Most of my output did so, so I was happy with the text generator.
+However, in the interest of definable metrics, I have incorporated a
+classification model which has been trained on various works of
 a similar style (and a few of a very un-similar style) which I can use to
-classify and score the output.
+classify and score the text-generation output.
 
-The classification model on the trained data scored with 92% accuracy on
+The resulting classification model scored with 92% accuracy on
 predicting the classes of a test data set, which was stratified to match the
 label proportion on the entire set.
-As a reference point, the shakespeare data set was about 67% of the entire data
+As a reference point, the Shakespeare data set was about 67% of the entire data
 set, so a naive baseline accuracy would be 67%.
 This model therefore scored significantly higher, indicating some success in
 discerning Shakespeare from other authors.
@@ -82,7 +86,7 @@ obtained from each classification set:
 3. Other fragments were 49% Shakespearean, with a mean probability score of
    0.49.
 
-These scores indicate that Shakespearean prompts will yeild more Shakespearian
+These scores indicate that Shakespearean prompts will yield more Shakespearian
 results, but also that on unrelated prompts (e.g. wine descriptions) the
 results can be Shakespearean more often than not. More tests could be done here
 to experiment with sentence fragment size and type to determine what sorts of
@@ -90,7 +94,7 @@ input yielded the best output.
 
 Bespoke tests of the generation-classification pair (i.e. arbitrary text input
 fed into the classifier) suggested that prompts
-which sounded more Elizabethan resulted in higher Shakespearean scores, whereas
+which sounded more Shakespearean resulted in higher Shakespearean scores, whereas
 prompts that included modern terminology or phrasing tended towards lower
 scores. There is no obvious way to interpret this *vis-a-vis* the model. Is the
 model overfit if it doesn't consider non-Shakespearean language to be
