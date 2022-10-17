@@ -23,10 +23,11 @@ So as relates to text, a transformer model will pay attention to past tokens
 "causal", as they use past tokens to determine future ones, but do not look
 into the future.
 In more sophisticated transformer models (e.g. masked language models) the
-models can look into the future as well as into the past. Such sophisticated
-models are used in text translation or sentence completion, where a word in
-a sentence needs to be determined based on surrounding words both before and
-after that word.
+models can look into the future as well as into the past (to infer based on
+surrounding context).
+Such sophisticated models are used in text translation or sentence completion,
+where a word in a sentence needs to be determined based on surrounding words
+both before and after that word.
 In my case, I'm using both versions. The causal model (GPT2) is used to generate text,
 and the masked language model (BERT) is used for classification.
 
@@ -44,7 +45,7 @@ should be able to figure that out on its own with the right input.
 And I think, on a rudimentary level, I have accomplished this here.
 
 Text generation output is hard to evaluate, hence my decision to incorporate
-a classification model here. To be honest, I just enjoy the ideation of
+a classification model. To be honest, I just enjoy the ideation of
 computer-aided-improvisation, so I would not be so picky to judge
 a computer-generated text so long as it vaguely fit my criteria, which in this
 case was "Shakespearean". Most of my output did so, so I was happy with the
@@ -53,9 +54,53 @@ incorporated a classification model which has been trained on various works of
 a similar style (and a few of a very un-similar style) which I can use to
 classify and score the output.
 
+The classification model on the trained data scored with 92% accuracy on
+predicting the classes of a test data set, which was stratified to match the
+label proportion on the entire set.
+As a reference point, the shakespeare data set was about 67% of the entire data
+set, so a naive baseline accuracy would be 67%.
+This model therefore scored significantly higher, indicating some success in
+discerning Shakespeare from other authors.
+
+Finally, I generated text from three test datasets, which were comprised of
+sentence fragments from various texts:
+1. Wine descriptions from [a Kaggle-hosted
+   dataset](https://www.kaggle.com/datasets/zynicide/wine-reviews)
+2. Shakespeare's complete works (the positive class data for the classification
+   model)
+3. Other words (the negative class data for the classification model)
+100 samples from each set were generated and classified, and scores were
+obtained from each classification set:
+1. Wine description fragments were...
+2. Shakespeare fragments were...
+3. Other fragments were...
+These scores indicate...
+
+Bespoke tests of the generation-classification pair suggested that prompts
+which sounded more Elizabethan resulted in higher Shakespearean scores, whereas
+prompts that included modern terminology or phrasing tended towards lower
+scores. There is no obvious way to interpret this *vis-a-vis* the model. Is the
+model overfit if it doesn't consider non-Shakespearean language to be
+Shakespearean? Is the model underfit if it categorizes Shakespearean language
+following a non-Shakespearean prompt as not Shakespearean? It would seem this
+is all depended on the downstream goal. But I was just looking to generate some
+text that sounds like Shakespeare, and this did so pretty alright! So I'll
+score it 0.92!
+
+## Directory Structure and Index
+
+- `code` directory: scripts, notebooks, and other code
+- `models` directory: where models should be kept for default configuration
+- `data` directory: data files
+
 ## Data
 
 See `data` folder.
+
+All text files are included in repo. For causal model validation, please
+download [the Wine Reviews datasets from
+Kaggle](https://www.kaggle.com/datasets/zynicide/wine-reviews) and move the
+`.csv` file into this directory.
 
 ### Shakespeare Texts
 
@@ -96,6 +141,7 @@ Third-party Python libraries used:
 - [`numpy`](https://numpy.org/)
 - [`tensorflow`](https://www.tensorflow.org/)
 - [`datasets`](https://huggingface.co/docs/datasets/index)
+- [scikit-learn](https://scikit-learn.org/stable/)
 
 ## Process
 
@@ -130,7 +176,44 @@ labelled to identify which sentences were from Shakespeare's works, and which
 were from other works. The fit BERT model could then classify arbitrary text
 into "Shakespearean" or "Not Shakespearean" categories.
 
-These models were then used in tandem, with the classification model scoring
-the text generation model. A rough evaluation could therefore be performed on
+### Evaluation
+
+The classification model was evaluated using standard binary classification
+metrics:
+- Baseline was approx 67% accuracy, as that was the relative size of the
+positive class compared to all data.
+- Classification accuracy was 92%. A significant improvement over baseline.
+
+In order to evaluate the causal (text generating) model, I had the classification
+model score the text generation model on various test input fragments.
+A rough evaluation could therefore be performed on
 the text generation to see how often it succeeded in generating what the
 classifier considered "Shakespearean" text.
+
+Three sets were provided to the generator, and passed along to the classifier:
+1. Sentence fragments from wine descriptions from [a Kaggle-hosted
+   dataset](https://www.kaggle.com/datasets/zynicide/wine-reviews).
+2. Sentence fragments from Shakespeare's works (the positive class data)
+3. Sentence fragments from other works (the negative class data)
+The sentence fragments were short portions of sentences from each set, which
+were fed to the causal model to generate data, which was limited to only the
+first sentence of that data. This was fed to the classifier.
+
+The classification results showed the highest positive (Shakespearean)
+classifications for sentence fragments sourced from Shakespeare's works. The
+other two categories (wines and other) showed ...
+
+So, as probably should be expected, Shakespearean in tends to Shakespearean
+out. But the reasonably high success rate in the other categories would suggest
+that the causal model is generating reasonably-Shakespearean text.
+
+## Conclusion
+
+This project really just scrapes the tip of the iceberg of language generation
+modeling. One of the major defining aspects of Shakespearean style that is lost here is the
+verse - the rhyme scheme and poetic meter that dominates his works. Poetic
+rhyme and meter is very hard to model, as evidenced by the many academic papers
+which struggle with the attempts. So, while the word choice and structure may
+lean towards the Shakespearean in this data model, the real essence of what
+makes Shakespeare (and poetry in general) great is missing entirely. But enough
+of the highbrow chatter, let's generate some "thee"s and "thou"s!
