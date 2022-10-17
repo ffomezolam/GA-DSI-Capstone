@@ -154,6 +154,7 @@ Third-party Python libraries used:
 - [`datasets`](https://huggingface.co/docs/datasets/index)
 - [`scikit-learn`](https://scikit-learn.org/stable/)
 - [`pandas`](https://pandas.pydata.org/)
+- [`streamlit`](https://streamlit.io/) (if looking to run streamlit app locally)
 
 ## Process
 
