@@ -2,7 +2,7 @@
 
 `/data/`
 
-All text data used in the models is kept in this directory.
+All cleaned text data used in the models is kept in this directory.
 
 The `src/` subdirectory contains the source text as originally downloaded from
 [gutenberg.org](https://gutenberg.org/).
