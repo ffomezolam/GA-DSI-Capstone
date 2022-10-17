@@ -1,6 +1,7 @@
-# General Assembly Data Science Capstone project
+# General Assembly Data Science Immersive Capstone project
 
-Repo for the capstone project for GA DSI 725
+Repository for the capstone project for GA Data Science Immersive 725.
+This project concerns text generation and classification with neural networks.
 
 ## Project Goal (Problem Statement)
 
