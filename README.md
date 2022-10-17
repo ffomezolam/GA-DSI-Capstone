@@ -17,7 +17,7 @@ text classification. This project applies such models to generate and classify
 text based on the works of William Shakespeare.
 
 A transformer neural network is a self-referencing network. I like to think of
-it as "time series for non-time sequential data".
+it as "time series for non-temporal sequential data".
 So as relates to text, a transformer model will pay attention to past tokens
 (words, letters, sentences) to determine future tokens. Such models are deemed
 "causal", as they use past tokens to determine future ones, but do not look
