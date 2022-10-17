@@ -100,18 +100,18 @@ score it 0.92!
 
 ## Directory Structure and Index
 
-- `code` directory: scripts, notebooks, and other code
-- `models` directory: where models should be kept for default configuration
-- `data` directory: data files
+- `code/`: scripts, notebooks, and other code
+- `models/`: where models should be kept for default configuration
+- `data/`: text files for model training
 
 ## Data
 
-See `data` folder.
+See `data/` folder.
 
-All text files are included in repo. For causal model validation, please
+All text files are included in the repository. For causal model validation, please
 download [the Wine Reviews datasets from
 Kaggle](https://www.kaggle.com/datasets/zynicide/wine-reviews) and move the
-`.csv` file into this directory.
+`winemag-data-130k-v2.csv` file into this directory.
 
 ### Shakespeare Texts
 
@@ -152,13 +152,14 @@ Third-party Python libraries used:
 - [`numpy`](https://numpy.org/)
 - [`tensorflow`](https://www.tensorflow.org/)
 - [`datasets`](https://huggingface.co/docs/datasets/index)
-- [scikit-learn](https://scikit-learn.org/stable/)
+- [`scikit-learn`](https://scikit-learn.org/stable/)
+- [`pandas`](https://pandas.pydata.org/)
 
 ## Process
 
 ### Text Preprocessing
 
-Cleaning partially automated to remove any preambles, licenses, and other text
+Cleaning was partially automated to remove any preambles, licenses, and other text
 unrelated to content of work (see `cleaning.py` script). Other cleaning manually
 performed to tidy up quirks of syntax:
 
@@ -176,11 +177,12 @@ I considered these not relevant to the content
 
 ### Modeling
 
-Used OpenAI's GPT2 pre-trained transformer model as implemented by Hugging
+Used OpenAI's GPT2 pre-trained transformer model (`distilgpt2`) as implemented by Hugging
 Face's `transformers` library for text generation. Fit on
 sentences from all Shakespeare's works, as delimited by ``[.!?:;]``.
 
-Classification model used a BERT attention transformer model as implemented by
+Classification model used a BERT attention transformer model
+(`distilbert-base-uncased`) as implemented by
 Hugging Face's `transformers` library for sequence
 classification. Fit on sentences from Shakespeare and other authors' works,
 labelled to identify which sentences were from Shakespeare's works, and which
