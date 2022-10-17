@@ -225,7 +225,7 @@ and passed along to the classifier:
 
 The sentence fragments were short portions of sentences from each set, which
 were fed to the causal model to generate data, which was limited to only the
-first sentence of that data. This was fed to the classifier.
+first sentences of each data point. This was fed to the classifier.
 
 In one run, the classification results showed the highest positive (Shakespearean)
 classifications for sentences generated from fragment  sourced from Shakespeare's works.
