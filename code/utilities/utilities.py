@@ -172,7 +172,9 @@ def load_model(path, type='causal'):
         return TFAutoModelForSequenceClassification.from_pretrained(path)
 
 def load_tokenizer(type):
-    return AutoTokenizer.from_pretrained(type)
+    tokenizer = AutoTokenizer.from_pretrained(type)
+    tokenizer.pad_token = tokenizer.eos_token
+    return tokenizer
 
 def generate_from(text, model, tokenizer,
                   max=100,
