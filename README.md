@@ -20,11 +20,11 @@ text based on the works of William Shakespeare.
 
 A transformer neural network is a self-referencing network. I like to think of
 it as "time series for non-temporal sequential data".
-So as relates to text, a transformer model will pay attention to past tokens
+So as relates to text, a transformer model can pay attention to past tokens
 (words, letters, sentences) to determine future tokens. Such models are deemed
 "causal", as they use past tokens to determine future ones, but do not look
 into the future.
-In more sophisticated transformer models (e.g. masked language models) the
+In other, more sophisticated transformer models (e.g. masked language models), the
 models can look into the future as well as into the past (to infer based on
 surrounding context).
 Such sophisticated models are used in text translation or sentence completion,
