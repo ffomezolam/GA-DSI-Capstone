@@ -71,12 +71,20 @@ sentence fragments from various texts:
 3. Other words (the negative class data for the classification model)
 100 samples from each set were generated and classified, and scores were
 obtained from each classification set:
-1. Wine description fragments were...
-2. Shakespeare fragments were...
-3. Other fragments were...
-These scores indicate...
+1. Wine description fragments were 68% Shakespearean, with a mean probability
+   score of 0.62.
+2. Shakespeare fragments were 96% Shakespearean, with a mean probability score
+   of 0.89.
+3. Other fragments were 49% Shakespearean, with a mean probability score of
+   0.49.
+These scores indicate that Shakespearean prompts will yeild more Shakespearian
+results, but also that on unrelated prompts (e.g. wine descriptions) the
+results can be Shakespearean more often than not. More tests could be done here
+to experiment with sentence fragment size and type to determine what sorts of
+input yielded the best output.
 
-Bespoke tests of the generation-classification pair suggested that prompts
+Bespoke tests of the generation-classification pair (i.e. arbitrary text input
+fed into the classifier) suggested that prompts
 which sounded more Elizabethan resulted in higher Shakespearean scores, whereas
 prompts that included modern terminology or phrasing tended towards lower
 scores. There is no obvious way to interpret this *vis-a-vis* the model. Is the
@@ -201,11 +209,13 @@ first sentence of that data. This was fed to the classifier.
 
 The classification results showed the highest positive (Shakespearean)
 classifications for sentence fragments sourced from Shakespeare's works. The
-other two categories (wines and other) showed ...
+other two categories (wines and other) showed 68% and 49% Shakespearean
+results, respectively.
 
 So, as probably should be expected, Shakespearean in tends to Shakespearean
 out. But the reasonably high success rate in the other categories would suggest
-that the causal model is generating reasonably-Shakespearean text.
+that the causal model can generate reasonably Shakespearean text from arbitrary
+input.
 
 ## Conclusion
 
