@@ -69,14 +69,17 @@ sentence fragments from various texts:
 2. Shakespeare's complete works (the positive class data for the classification
    model)
 3. Other words (the negative class data for the classification model)
+
 100 samples from each set were generated and classified, and scores were
 obtained from each classification set:
+
 1. Wine description fragments were 68% Shakespearean, with a mean probability
    score of 0.62.
 2. Shakespeare fragments were 96% Shakespearean, with a mean probability score
    of 0.89.
 3. Other fragments were 49% Shakespearean, with a mean probability score of
    0.49.
+
 These scores indicate that Shakespearean prompts will yeild more Shakespearian
 results, but also that on unrelated prompts (e.g. wine descriptions) the
 results can be Shakespearean more often than not. More tests could be done here
