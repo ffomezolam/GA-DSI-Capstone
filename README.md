@@ -215,11 +215,14 @@ A rough evaluation could therefore be performed on
 the text generation to see how often it succeeded in generating what the
 classifier considered "Shakespearean" text.
 
-Three sets were provided to the generator, and passed along to the classifier:
+Three sets of 100 sentences each were provided to the generator,
+and passed along to the classifier:
+
 1. Sentence fragments from wine descriptions from [a Kaggle-hosted
    dataset](https://www.kaggle.com/datasets/zynicide/wine-reviews).
 2. Sentence fragments from Shakespeare's works (the positive class data)
 3. Sentence fragments from other works (the negative class data)
+
 The sentence fragments were short portions of sentences from each set, which
 were fed to the causal model to generate data, which was limited to only the
 first sentence of that data. This was fed to the classifier.
