@@ -166,6 +166,8 @@ Third-party Python libraries used:
 
 ### Text Preprocessing
 
+See `code/utilities/cleaner.py`
+
 Cleaning was partially automated to remove any preambles, licenses, and other text
 unrelated to content of work (see `cleaning.py` script). Other cleaning manually
 performed to tidy up quirks of syntax:
@@ -183,6 +185,9 @@ footnotes, other notes (whether by author or otherwise), etc.;
 I considered these not relevant to the content
 
 ### Modeling
+
+See `models/` directory for instructions on downloading and setting up
+pre-trained models
 
 Used OpenAI's GPT2 pre-trained transformer model (`distilgpt2`) as implemented by Hugging
 Face's `transformers` library for text generation. Fit on
