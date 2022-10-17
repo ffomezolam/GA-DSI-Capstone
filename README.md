@@ -189,16 +189,16 @@ I considered these not relevant to the content
 See `models/` directory for instructions on downloading and setting up
 pre-trained models
 
-Used OpenAI's GPT2 pre-trained transformer model (`distilgpt2`) as implemented by Hugging
-Face's `transformers` library for text generation. Fit on
+I use OpenAI's GPT2 pre-trained transformer model (`distilgpt2`) as implemented by Hugging
+Face's `transformers` library for text generation. It has been fit on
 sentences from all Shakespeare's works, as delimited by ``[.!?:;]``.
 
-Classification model used a BERT attention transformer model
+The classification model is a BERT attention transformer model
 (`distilbert-base-uncased`) as implemented by
 Hugging Face's `transformers` library for sequence
-classification. Fit on sentences from Shakespeare and other authors' works,
+classification. It has been fit on sentences from Shakespeare's and other authors' works,
 labelled to identify which sentences were from Shakespeare's works, and which
-were from other works. The fit BERT model could then classify arbitrary text
+were from other works. The fit BERT model can then classify arbitrary text
 into "Shakespearean" or "Not Shakespearean" categories.
 
 ### Evaluation
