@@ -214,8 +214,9 @@ class ClassificationResult:
     def __iter__(self):
         return zip(self.text, self.c, self.s)
 
-def classify_from(text, model, tokenizer):
-    tokens = tokenizer(text, return_tensors='tf', padding=True)
+def classify_from(text, model, tokenizer, padding=True):
+    tokenizer.pad_token = tokenizer.eos_token
+    tokens = tokenizer(text, return_tensors='tf', padding=padding)
     output = model(tokens)
     return ClassificationResult(text, output)
 

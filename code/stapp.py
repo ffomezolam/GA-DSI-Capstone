@@ -75,13 +75,15 @@ causal_model_path = get_model_path(cfg, 'causal')
 class_model_path = get_model_path(cfg, 'class')
 
 causal_tokenizer = load_tokenizer(cfg['CAUSAL_MODEL'])
+causal_tokenizer.pad_token = causal_tokenizer.eos_token
 causal_model = load_model(causal_model_path, 'causal')
 
 class_tokenizer = load_tokenizer(cfg['CLASS_MODEL'])
+class_tokenizer.pad_token = class_tokenizer.eos_token
 class_model = load_model(class_model_path, 'class')
 
 text = st.text_input("Input")
-generate = st.checkbox("Generate follow-up text", value=0)
+generate = st.checkbox("Generate text", value=0)
 sentence = 0
 if generate:
     sentence = st.checkbox("One sentence out", value=1)
@@ -94,7 +96,7 @@ def score_text(text):
     else:
         gen = text
 
-    classification = classify_from([gen], class_model, class_tokenizer)
+    classification = classify_from([gen], class_model, class_tokenizer, padding=False)
     classification = classification.get_results()[0]
 
     st.subheader("Output")
