@@ -1,13 +1,14 @@
 # General Assembly Data Science Immersive Capstone project
 
-Repository for the capstone project for GA Data Science Immersive 725.
+Repository for the capstone project for GA Data Science Immersive 725
+(concluding 2022-10-17).
 This project concerns text generation and classification with neural networks.
 
 ## Project Goal (Problem Statement)
 
-Develop a text generation model that will imitate Shakespeare, and develop
-a classification metric to determine the extent that any text is Shakespearian,
-and use that metric to evaluate the model.
+Develop a text-generation model that will imitate Shakespeare, develop
+a classification model to determine the extent that any text is Shakespearian,
+and use the classification model metrics to evaluate the text-generation model.
 
 ## Summary
 
