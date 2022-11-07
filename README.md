@@ -100,7 +100,7 @@ scores. There is no obvious way to interpret this *vis-a-vis* the model. Is the
 model overfit if it doesn't consider non-Shakespearean language to be
 Shakespearean? Is the model underfit if it categorizes Shakespearean language
 following a non-Shakespearean prompt as not Shakespearean? It would seem this
-is all depended on the downstream goal. But I was just looking to generate some
+is all dependant on the downstream goal. But I was just looking to generate some
 text that sounds like Shakespeare, and this did so pretty alright! So I'll
 score it 0.92!
 
