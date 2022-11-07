@@ -74,7 +74,7 @@ sentence fragments from various texts:
    dataset](https://www.kaggle.com/datasets/zynicide/wine-reviews)
 2. Shakespeare's complete works (the positive class data for the classification
    model)
-3. Other words (the negative class data for the classification model)
+3. Other works (the negative class data for the classification model)
 
 100 samples from each set were generated and classified, and scores were
 obtained from each classification set:
